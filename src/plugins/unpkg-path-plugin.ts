@@ -34,8 +34,8 @@ export const unpkgPathPlugin = () => {
           return {
             loader: "jsx",
             contents: `
-                  const message = require('nested-test-pkg');
-                  console.log(message);
+                  import React, { useEffect } from 'react'
+                  console.log(React, useEffect);
                 `,
           };
         }
