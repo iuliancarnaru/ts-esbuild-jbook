@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import * as esbuild from "esbuild-wasm";
-import { render } from "react-dom";
-import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import * as esbuild from 'esbuild-wasm';
+import { render } from 'react-dom';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 const App: React.FC = () => {
   const ref = useRef<any>();
-  const [input, setInput] = useState("");
-  const [code, setCode] = useState("");
+  const [input, setInput] = useState('');
+  const [code, setCode] = useState('');
 
   useEffect(() => {
     startService();
@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: "./esbuild.wasm",
+      wasmURL: './esbuild.wasm',
     });
   };
 
@@ -23,14 +23,14 @@ const App: React.FC = () => {
     if (!ref.current) return;
 
     const result = await ref.current.build({
-      entryPoints: ["index.js"],
+      entryPoints: ['index.js'],
       bundle: true,
       write: false,
       plugins: [unpkgPathPlugin()],
       define: {
         'process.env.NODE_ENV': `"production"`,
-        global: 'window'
-      }
+        global: 'window',
+      },
     });
 
     setCode(result.outputFiles[0].text);
@@ -53,4 +53,4 @@ const App: React.FC = () => {
   );
 };
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById('root'));
